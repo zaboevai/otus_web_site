@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href={% static 'online_school/css/bootstrap.min.css' %}>
+
+    <title>
+
+        {% block title %}
+            SCHOOL
+        {% endblock %}
+
+    </title>
+</head>
+<body class="container">
+{% block header %}
+
+    <div class="align-middle">
+        <h1>ОНЛАЙН ШКОЛА</h1>
+        <table class="table" border='1' bgcolor="#d3d3d3">
+
+            <tr align="center">
+                <td><a href="/"> Главная </a></td>
+                <td><a href="/courses"> Курсы </a></td>
+                <td><a href="/lessons"> Занятия </a></td>
+                <td><a href="/teachers"> Преподаватели</a></td>
+            </tr>
+
+
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block body %}
+    <h3>Hello Shcool</h3>
+{% endblock %}
+
+{% block body_end %}
+{% endblock %}
+
+</body>
+</html>
