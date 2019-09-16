@@ -1,21 +1,22 @@
 from django.shortcuts import render
-
 # Create your views here.
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from .models import Lesson, Course, Teacher
 
 
 class IndexPageView(TemplateView):
     template_name = 'online_school/index.html'
 
 
-class CoursesPageView(TemplateView):
+class CoursesListView(ListView):
     template_name = 'online_school/courses.html'
+    model = Course
 
 
-class LessonsPageView(TemplateView):
+class LessonsListView(ListView):
     template_name = 'online_school/lessons.html'
+    model = Lesson
 
-
-class TeachersPageView(TemplateView):
+class TeachersListView(ListView):
     template_name = 'online_school/teachers.html'
-
+    model = Teacher

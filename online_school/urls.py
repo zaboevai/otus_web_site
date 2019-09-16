@@ -8,9 +8,10 @@ app_name = 'online_school'
 
 urlpatterns = [
     path('', views.IndexPageView.as_view(), name='index'),
-    path('courses/', views.CoursesPageView.as_view(), name='courses'),
-    path('lessons/', views.LessonsPageView.as_view(), name='lessons'),
-    path('teachers/', views.TeachersPageView.as_view(), name='teachers'),
+    path('courses/', views.CoursesListView.as_view(), name='courses'),
+    path('lessons/', views.LessonsListView.as_view(), name='lessons'),
+    path('teachers/', views.TeachersListView.as_view(), name='teachers'),
 ]
+
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

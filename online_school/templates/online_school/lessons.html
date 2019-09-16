@@ -1,5 +1,29 @@
 {% extends 'online_school/base.html' %}
 
 {% block body %}
-    <h1>Welcome to lessons</h1>
+    <h1>Список занятий</h1>
+
+
+    <table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Номер</th>
+        <th>Занятие</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for lesson in object_list %}
+    <tr>
+        <td>{{ lesson.id}}</td>
+        <td>{{ lesson.title }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>1</td>
+        <td>No lesson yet.</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}

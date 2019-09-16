@@ -1,5 +1,30 @@
 {% extends 'online_school/base.html' %}
 
 {% block body %}
-    <h1>Welcome to courses</h1>
+    <h1>Список курсов</h1>
+
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Номер</th>
+        <th>Название</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for course in object_list %}
+    <tr>
+        <td>{{ course.id}}</td>
+        <td>{{ course.name }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>1</td>
+        <td>No course yet.</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
 {% endblock %}
