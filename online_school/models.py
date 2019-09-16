@@ -39,7 +39,6 @@ class Student(models.Model):
         return f'{self.last_name} {self.first_name} {self.patronymic}'
 
 
-
 class Lesson(models.Model):
 
     title = models.CharField(max_length=255)

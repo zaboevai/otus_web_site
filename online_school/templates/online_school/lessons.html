@@ -1,21 +1,29 @@
 {% extends 'online_school/base.html' %}
 
 {% block body %}
-    <h1>Список занятий</h1>
+    <h3>Список занятий</h3>
 
 
     <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Номер</th>
-        <th>Занятие</th>
+        <th>Дата</th>
+        <th>Время</th>
+        <th>Курс</th>
+        <th>Тема</th>
+        <th>Описание</th>
+        <th>Преподаватель</th>
     </tr>
     </thead>
     <tbody>
     {% for lesson in object_list %}
     <tr>
-        <td>{{ lesson.id}}</td>
+        <td>{{ lesson.date}}</td>
+        <td>{{ lesson.time }}</td>
+        <td>{{ lesson.type_course }}</td>
         <td>{{ lesson.title }}</td>
+        <td>{{ lesson.desc }}</td>
+        <td>{{ lesson.teacher }}</td>
     </tr>
     {% empty %}
     <tr>
