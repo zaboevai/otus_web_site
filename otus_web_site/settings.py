@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'online_school.apps.OnlineSchoolConfig',
+    'rest_framework',
     'debug_toolbar',
 ]
 
