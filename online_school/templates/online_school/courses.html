@@ -7,15 +7,19 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Номер</th>
         <th>Название</th>
+        <th>Преподаватели</th>
     </tr>
     </thead>
     <tbody>
     {% for course in object_list %}
     <tr>
-        <td>{{ course.id}}</td>
-        <td>{{ course.name }}</td>
+        <td>{{ course.title }}</td>
+        <td>
+            {% for teacher in course.teachers.all %}
+                {{ teacher }};
+            {% endfor %}
+        </td>
     </tr>
     {% empty %}
     <tr>
