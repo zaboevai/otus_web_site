@@ -12,10 +12,12 @@ urlpatterns = [
     path('lessons/', views.LessonsListView.as_view(), name='lessons'),
     path('teachers/', views.TeachersListView.as_view(), name='teachers'),
 
+    path('api/auth/', views.AuthApiView.as_view()),
+    path('api/login/', views.LoginApiView.as_view()),
+
     path('api/courses/', views.CourseListApiView.as_view()),
     path('api/courses/<int:pk>/', views.CourseListDetailApiView.as_view()),
 
-    path('api/auth/', views.AuthApiView.as_view()),
 ]
 
 

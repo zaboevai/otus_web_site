@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+
 from .models import Course
 
 
 class CourseSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Course
         fields = 'id', 'name', 'desc'
@@ -14,15 +14,22 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class UserAuthSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'email', 'groups')
-        # exclude = ('password', 'groups', 'last_login')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password',)
+        write_only_fields = ('password',)
+        read_only_fields = ('id',)
 
-    # username = serializers.CharField(required=True)
-    # password = serializers.CharField(required=False)
-    groups = serializers.CharField(required=False, default='students')
-    # email_address = serializers.CharField(required=True)
+    first_name = serializers.CharField(required=False, allow_blank=True)
+    last_name = serializers.CharField(required=False, allow_blank=True)
 
-
+    def create(self, validated_data):
+        user = User.objects.create(
+            username=validated_data['username'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            email=validated_data['email']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user

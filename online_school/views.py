@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -34,11 +34,8 @@ class TeachersListView(ListView):
 class AuthApiView(APIView):
 
     def get(self, request):
-        # user = User.objects.all()
         serializer = UserAuthSerializer()
-        # if serializer.is_valid():
         return Response(serializer.data)
-        # user = authenticate(username='john', password='secret')
 
     def post(self, request):
         serializer = UserAuthSerializer(data=request.data)
@@ -49,12 +46,30 @@ class AuthApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class LoginApiView(APIView):
+
+    def post(self, request):
+        data = request.data
+
+        username = data.get('username', None)
+        password = data.get('password', None)
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return Response(status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 class CourseListApiView(APIView):
 
     def get(self, request):
         course = Course.objects.all()
         serializer = CourseSerializer(course, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         serializer = CourseSerializer(data=request.data)
