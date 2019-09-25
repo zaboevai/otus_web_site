@@ -8,8 +8,7 @@ from rest_framework import status
 
 
 from .models import Lesson, Course, Teacher
-from django.contrib.auth.models import User
-from .serializers import CourseSerializer, UserAuthSerializer
+from .serializers import CourseSerializer, UserAuthSerializer, UserLoginSerializer
 
 
 class IndexPageView(TemplateView):
@@ -47,6 +46,10 @@ class AuthApiView(APIView):
 
 
 class LoginApiView(APIView):
+
+    def get(self, request):
+        serializer = UserLoginSerializer()
+        return Response(serializer.data)
 
     def post(self, request):
         data = request.data
