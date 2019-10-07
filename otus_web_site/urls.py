@@ -16,12 +16,15 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+from graphene_django.views import GraphQLView
+from .schema import schema
 
 from otus_web_site import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('online_school.urls'))
+    path('graphql/', GraphQLView.as_view(graphiql=True, schema=schema)),
+    path('', include('online_school.urls')),
 ]
 
 if settings.DEBUG:
