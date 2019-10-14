@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import Course, TypeCourse, Teacher, Lesson, Student, StudentsGroup, TeacherCourse
-
-
-@admin.register(TeacherCourse)
-class TeacherCourseAdmin(admin.ModelAdmin):
-    pass
+from .models import Course, TypeCourse, Teacher, Lesson, Student, StudentsGroup
 
 
 @admin.register(TypeCourse)
@@ -14,7 +9,11 @@ class TypeCourseAdmin(admin.ModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'desc', 'type')
+    list_display = ('id', 'title', 'desc', 'type', 'display_teacher')
+
+    def display_teacher(self, obj):
+        teachers = obj.teachers.values_list('last_name', 'first_name', 'patronymic')
+        return '; '.join([' '.join(teacher) for teacher in teachers])
 
 
 @admin.register(Teacher)
