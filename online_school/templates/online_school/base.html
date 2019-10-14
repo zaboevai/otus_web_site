@@ -13,30 +13,67 @@
 
     </title>
 </head>
-<body class="container">
-{% block header %}
+<nav>
 
-    <div align="center">
-        <h1>ОНЛАЙН ШКОЛА</h1>
-        <hr>
-        <table class="table" border='2'>
+    {% block header %}
 
-            <tr align="center">
-                <td><a href="/"> Главная </a></td>
-                <td><a href="/courses"> Курсы </a></td>
-                <td><a href="/lessons"> Занятия </a></td>
-                <td><a href="/teachers"> Преподаватели</a></td>
-            </tr>
-
-        </table>
+    <div class="container">
+        <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+            <!--            <div class="row justify-content-center">-->
+            <div class="col-sm-2">
+                <div align="center">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="/" role="tab"
+                       aria-controls="nav-home" aria-selected="true">
+                        Главная
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div align="center">
+                    <a class="nav-item nav-link" id="nav-course-tab" data-toggle="tab" href="/courses" role="tab"
+                       aria-controls="nav-profile" aria-selected="false">
+                        Курсы
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div align="center">
+                    <a class="nav-item nav-link" id="nav-lesson-tab" data-toggle="tab" href="/lessons" role="tab"
+                       aria-controls="nav-contact" aria-selected="false">
+                        Уроки
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div align="center">
+                    <a class="nav-item nav-link" id="nav-teacher-tab" data-toggle="tab" href="/teachers" role="tab"
+                       aria-controls="nav-contact" aria-selected="false">
+                        Преподаватели
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div align="center">
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="/contacts" role="tab"
+                       aria-controls="nav-contact" aria-selected="false">
+                        Контакты
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div align="center">
+                    <a class="nav-item nav-link" id="nav-login-tab" data-toggle="tab" href="/login" role="tab"
+                       aria-controls="nav-contact" aria-selected="false">
+                        LogIn
+                    </a>
+                </div>
+            </div>
+            <!--            </div>-->
     </div>
-    <hr>
-
-
+</nav>
 {% endblock %}
 
 {% block body %}
-    <h3>Hello Shcool</h3>
 {% endblock %}
 
 {% block body_end %}
