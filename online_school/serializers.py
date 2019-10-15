@@ -13,10 +13,11 @@ class CourseSerializer(serializers.ModelSerializer):
     desc = serializers.CharField(required=False)
 
 
-class LoginAuthSerializer(serializers.ModelSerializer):
+class UserLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = 'username', 'password'
+        fields = ('username', 'password')
+        write_only_fields = ('password',)
 
 
 class UserAuthSerializer(serializers.ModelSerializer):

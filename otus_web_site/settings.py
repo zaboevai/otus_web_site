@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'online_school.apps.OnlineSchoolConfig',
     'rest_framework',
     'debug_toolbar',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
