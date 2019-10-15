@@ -11,6 +11,9 @@ urlpatterns = [
     path('courses/', views.CoursesListView.as_view(), name='courses'),
     path('lessons/', views.LessonsListView.as_view(), name='lessons'),
     path('teachers/', views.TeachersListView.as_view(), name='teachers'),
+    path('contacts/', views.ContactsListView.as_view(), name='contacts'),
+    path('login/', views.LoginListView.as_view(), name='login'),
+    path('register/', views.RegisterListView.as_view(), name='register'),
 
     path('api/auth/', views.AuthApiView.as_view()),
     path('api/login/', views.LoginApiView.as_view()),

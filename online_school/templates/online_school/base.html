@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     {% load static %}
@@ -8,76 +8,77 @@
     <title>
 
         {% block title %}
-            Обучение
+        CUCUMBER - Онлайн образование
         {% endblock %}
 
     </title>
 </head>
-<nav>
+<body>
 
     {% block header %}
 
-    <div class="container">
-        <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-            <!--            <div class="row justify-content-center">-->
-            <div class="col-sm-2">
-                <div align="center">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="/" role="tab"
-                       aria-controls="nav-home" aria-selected="true">
-                        Главная
-                    </a>
-                </div>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 text-light bg-dark border-bottom shadow-sm ">
+
+        <div class="flex-sm-fill bd-highlight">
+            <a class="navbar-brand text-light" href="/">Brain storm</a>
             </div>
-            <div class="col-sm-2">
-                <div align="center">
-                    <a class="nav-item nav-link" id="nav-course-tab" data-toggle="tab" href="/courses" role="tab"
-                       aria-controls="nav-profile" aria-selected="false">
-                        Курсы
-                    </a>
+
+        <div class="p-2 justify-content-end bd-highlight">
+            <nav class="navbar navbar-dark navbar-expand-lg my-md-0 mr-md-3">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse bg-dark" id="navbarSupportedContent">
+                    <a class="nav-link text-light" href="/courses/">Курсы</a>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Обучение
+                        </a>
+                        <div class="dropdown-menu ">
+                            <a class="dropdown-item" href="/lessons/">Обучение</a>
+                            <a class="dropdown-item" href="/teachers/">Преподаватели</a>
+                        </div>
+                    </div>
+                    <a class="nav-link text-light mr-md-5" href="/contacts/">Контакты</a>
+
+                    <a class="btn btn-outline-primary mr-md-2" href="/login/">Войти</a>
+                    <a class="btn btn-outline-primary mr-md-2" href="/register/">Регистрация</a>
                 </div>
+            </nav>
             </div>
-            <div class="col-sm-2">
-                <div align="center">
-                    <a class="nav-item nav-link" id="nav-lesson-tab" data-toggle="tab" href="/lessons" role="tab"
-                       aria-controls="nav-contact" aria-selected="false">
-                        Уроки
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div align="center">
-                    <a class="nav-item nav-link" id="nav-teacher-tab" data-toggle="tab" href="/teachers" role="tab"
-                       aria-controls="nav-contact" aria-selected="false">
-                        Преподаватели
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div align="center">
-                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="/contacts" role="tab"
-                       aria-controls="nav-contact" aria-selected="false">
-                        Контакты
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div align="center">
-                    <a class="nav-item nav-link" id="nav-login-tab" data-toggle="tab" href="/login" role="tab"
-                       aria-controls="nav-contact" aria-selected="false">
-                        LogIn
-                    </a>
-                </div>
-            </div>
-            <!--            </div>-->
     </div>
-</nav>
-{% endblock %}
+    {% endblock %}
 
-{% block body %}
-{% endblock %}
+    {% block body %}
+    {% endblock %}
 
-{% block body_end %}
-{% endblock %}
+    {% block body_end %}
+    <footer class="pt-4 my-md-5 pt-md-5 border-top text-light">
+        <div class="row">
+
+            <div class="col-12 col-md" align="center">
+                <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+            </div>
+
+        </div>
+    </footer>
+    {% endblock %}
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 
 </body>
+
 </html>

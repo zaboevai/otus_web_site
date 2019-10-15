@@ -31,6 +31,22 @@ class TeachersListView(ListView):
     model = Teacher
 
 
+class ContactsListView(ListView):
+    template_name = 'online_school/contacts.html'
+    model = Teacher
+
+
+class LoginListView(ListView):
+    template_name = 'online_school/login.html'
+    model = Teacher
+
+
+class RegisterListView(ListView):
+    template_name = 'online_school/register.html'
+    model = Teacher
+
+
+
 class AuthApiView(APIView):
 
     def get(self, request):
