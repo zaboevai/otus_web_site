@@ -26,6 +26,13 @@ class AbstractDateTimeMixin(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
 
+class SubscribeEmail(models.Model):
+    class Meta:
+        ordering = ('id',)
+
+    email = models.EmailField(max_length=255)
+
+
 class TypeCourse(AbstractDateTimeMixin):
     class Meta:
         ordering = ('id',)

@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import Course, TypeCourse, Teacher, Lesson, Student, StudentsGroup
+from .models import * #Course, TypeCourse, Teacher, Lesson, Student, StudentsGroup
 
+
+@admin.register(SubscribeEmail)
+class SubscribeEmailAdmin(admin.ModelAdmin):
+    list_display = ('email',)
 
 @admin.register(TypeCourse)
 class TypeCourseAdmin(admin.ModelAdmin):
