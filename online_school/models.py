@@ -40,7 +40,7 @@ class Teacher(AbstractPeopleNamesMixin, AbstractDateTimeMixin):
     class Meta:
         ordering = ('id',)
 
-    courses = models.ManyToManyField('Course', related_name='Teacher', through='Course_Teachers')
+    courses = models.ManyToManyField('Course', blank=True, null=True, related_name='Teacher', through='Course_Teachers')
 
     def __str__(self):
         return f'{self.last_name} {self.first_name} {self.patronymic}'
