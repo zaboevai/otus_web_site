@@ -8,7 +8,7 @@
     <title>
 
         {% block title %}
-        CUCUMBER - Онлайн образование
+        BrainStorm - Онлайн образование
         {% endblock %}
 
     </title>
@@ -60,10 +60,24 @@
     <footer class="pt-4 my-md-5 pt-md-5 border-top text-light">
         <div class="row">
 
-            <div class="col-12 col-md" align="center">
+            <div class="10 col-md" align="right">
                 <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
             </div>
 
+            <div class="1 col-md" align="right">
+<!--                <button id='subscribe' type="button" class="btn btn-secondary bg-gray">Подписаться на новости</button>-->
+                <a id='subscribe' href="#">Подписаться на новости</a>
+            </div>
+            <div class="1 col-md" align="left">
+                <form id="form">
+                    <fieldset name="userFields" hidden="true" >
+                        <legend hidden="False">Email</legend>
+                            <input name="login" type="email" placeholder="email@example.com" >
+                            <a id="SubscribeButton" class="btn btn-outline-primary mr-md-2" href="#">Подписаться</a>
+<!--                            <input id="SubscribeButton" type="submit" value="Подписаться">-->
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </footer>
     {% endblock %}
@@ -78,7 +92,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-
+    <script src="{% static  'online_school/js/subscription.js' %}"></script>
 </body>
 
 </html>
