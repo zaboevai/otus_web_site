@@ -1,30 +1,46 @@
 {% extends 'online_school/base.html' %}
 
 {% block body %}
-    <h3>Список курсов</h3>
 
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Дерзай</h1>
+        <p class="lead">Доступные курсы</p>
+    </div>
 
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>Номер</th>
-        <th>Название</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for course in object_list %}
-    <tr>
-        <td>{{ course.id}}</td>
-        <td>{{ course.name }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td>1</td>
-        <td>No course yet.</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="card-deck mb-3 text-center">
+                    {% for course in object_list %}
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">{{ course.type }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">
+                                    {{ course.title }}
+                                    <!--                        <small class="text-muted">/ mo</small>-->
+                                </h1>
+                                <h4>Преподаватели:</h4>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    {% for teacher in course.teachers.all %}
+                                        <li>{{ teacher }}</li>
+                                    {% endfor %}
+                                </ul>
+
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Записаться
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
 
 
 {% endblock %}

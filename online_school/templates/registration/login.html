@@ -1,0 +1,74 @@
+{% extends "online_school/base.html" %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row m-2">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-auto">
+
+                <div class="card-deck text-center">
+
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">Авторизация</h4>
+                        </div>
+
+                        <div class="card-body">
+
+                            {% if form.errors %}
+                                <p>Your username and password didn't match. Please try again.</p>
+                            {% endif %}
+
+                            {% if next %}
+                                {% if user.is_authenticated %}
+                                    <p>Your account doesn't have access to this page. To proceed,
+                                        please login with an account that has access.</p>
+                                {% else %}
+                                    <p>Please login to see this page.</p>
+                                {% endif %}
+                            {% endif %}
+
+                            <div class="login">
+                                <form method="post" action="{% url 'online_school:login' %}">
+                                    {% csrf_token %}
+                                    <table>
+                                        <tr>
+                                            <td>{{ form.username.label_tag }}</td>
+                                            <td>{{ form.username }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form.password.label_tag }}</td>
+                                            <td>{{ form.password }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td align="end">
+                                                <button type="button submit"
+                                                        class="btn btn-lg btn-block btn-outline-primary">
+                                                    Войти
+                                                </button>
+                                                <input type="hidden" name="next" value="{{ next }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td align="end">
+                                                <p><a href="{% url 'online_school:password_reset' %}">Забыли пароль?</a>
+                                                </p>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+
+{% endblock %}

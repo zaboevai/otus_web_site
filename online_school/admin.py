@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Course, TypeCourse, Teacher, Lesson, Student, StudentsGroup, TeacherCourse
+from .models import Course, TypeCourse, Teacher, Lesson, Student, StudentsGroup  # , TeacherCourse
 
 
-@admin.register(TeacherCourse)
-class TeacherCourseAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(TeacherCourse)
+# class TeacherCourseAdmin(admin.ModelAdmin):
+#     pass
 
 
 @admin.register(TypeCourse)

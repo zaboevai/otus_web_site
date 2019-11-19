@@ -1,14 +1,12 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, ListView
 from django.contrib.auth import authenticate, login
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
+from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView, ListView
 from rest_framework import status
-
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Lesson, Course, Teacher
-from django.contrib.auth.models import User
 from .serializers import CourseSerializer, UserAuthSerializer
 
 
@@ -31,6 +29,31 @@ class TeachersListView(ListView):
     model = Teacher
 
 
+class ContactsListView(ListView):
+    template_name = 'online_school/contacts.html'
+    model = Teacher
+
+
+class LoginAuthView(LoginView):
+    template_name = 'registration/login.html'
+
+
+class RegisterAuthView(LoginView):
+    template_name = 'registration/register.html'
+
+
+class LogoutAuthView(LogoutView):
+    template_name = 'registration/logout.html'
+
+
+class ProfileAuthView(TemplateView):
+    template_name = 'registration/profile.html'
+
+
+class PasswordRessetView(PasswordResetView):
+    template_name = 'registration/password_reset_form.html'
+
+
 class AuthApiView(APIView):
 
     def get(self, request):
@@ -47,6 +70,10 @@ class AuthApiView(APIView):
 
 
 class LoginApiView(APIView):
+
+    def get(self, request):
+        serializer = UserLoginSerializer()
+        return Response(serializer.data)
 
     def post(self, request):
         data = request.data
