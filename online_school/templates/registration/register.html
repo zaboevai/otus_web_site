@@ -1,11 +1,56 @@
 {% extends 'online_school/base.html' %}
 
+
 {% block body %}
 
-    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">Регистрация</h1>
-        <p class="lead"></p>
-    </div>
+<form method="post" action="">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row m-2">
 
+            <div class="col-sm-4"></div>
+
+            <div class="col-sm-4">
+                <dl class="register">
+                    <div class="card ">
+                        <div class="card shadow-sm">
+
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Регистрация</h4>
+                            </div>
+
+                            <div class="card-body">
+                                {% for field in form %}
+                                <div class="form-group">
+                                    <label>{{ field.label_tag }}</label>
+                                    <dd class="clearfix">
+                                        {{ field }}
+
+                                        {% if field.help_text %}
+                                        <div class="clearfix">{{ field.help_text }}</div>
+                                        {% endif %}
+
+                                        {% if field.errors %}
+                                        <div class="myerrors clearfix">{{ field.errors }}</div>
+                                        {% endif %}
+                                    </dd>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+
+                            <div class="card-footer text-muted">
+                                <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
+                                    Зарегистрироваться
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </dl>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+</form>
 
 {% endblock %}

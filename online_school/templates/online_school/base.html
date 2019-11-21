@@ -51,7 +51,7 @@
                         <a class="btn btn-outline-primary mr-md-2" href="/login/">Войти</a>
                         <a class="btn btn-outline-primary mr-md-2" href="/register/">Регистрация</a>
                     {% else %}
-                        <a class="btn btn-outline-primary mr-md-2" href="/accounts/profile/">Профиль</a>
+                        <a class="btn btn-outline-primary mr-md-2" href="/accounts/profile/">{{ user }}</a>
                         <a class="btn btn-outline-primary mr-md-2" href="/logout/">Выйти</a>
                     {% endif %}
                 </div>
@@ -80,7 +80,6 @@
                             <input name="login" type="email" placeholder="email@example.com">
                         </label>
                         <a id="SubscribeButton" class="btn btn-outline-primary mr-md-2" href="#">Подписаться</a>
-                        <!--                            <input id="SubscribeButton" type="submit" value="Подписаться">-->
                     </fieldset>
                 </form>
             </div>

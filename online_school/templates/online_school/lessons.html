@@ -10,6 +10,7 @@
         <th>Дата</th>
         <th>Время</th>
         <th>Курс</th>
+        <th>Тип курса</th>
         <th>Тема</th>
         <th>Описание</th>
         <th>Преподаватель</th>
@@ -20,7 +21,8 @@
     <tr>
         <td>{{ lesson.date}}</td>
         <td>{{ lesson.time }}</td>
-        <td>{{ lesson.type_course }}</td>
+        <td>{{ lesson.course.title }}</td>
+        <td>{{ lesson.course.type }}</td>
         <td>{{ lesson.title }}</td>
         <td>{{ lesson.desc }}</td>
         <td>{{ lesson.teacher }}</td>
