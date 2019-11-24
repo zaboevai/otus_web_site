@@ -8,16 +8,16 @@ from online_school import views
 app_name = 'online_school'
 
 urlpatterns = [
-    path('', views.IndexPageView.as_view()),
+    path('', views.IndexPageView.as_view(), name='home'),
     path('courses/', views.CoursesListView.as_view(), name='courses'),
     path('lessons/', views.LessonsListView.as_view(), name='lessons'),
     path('teachers/', views.TeachersListView.as_view(), name='teachers'),
     path('contacts/', views.ContactsListView.as_view(), name='contacts'),
 
-    path('register/', views.registration, name='register'),
+    path('signup/', views.RegistrationView.as_view(), name='signup'),
     path('login/', views.LoginAuthView.as_view(), name='login'),
     path('logout/', views.LogoutAuthView.as_view(), name='logout'),
-    path('accounts/profile/', views.ProfileAuthView.as_view(), name='index'),
+    path('accounts/profile/', views.ProfileView.as_view(), name='profile'),
     path('password_reset/', views.PasswordResetView.as_view(), name='password_reset'),
 
 

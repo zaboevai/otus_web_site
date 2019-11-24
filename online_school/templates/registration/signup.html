@@ -1,8 +1,6 @@
 {% extends 'online_school/base.html' %}
 
 {% load crispy_forms_tags %}
-
-
 {% block body %}
 
     <form method="post" action="">
@@ -18,7 +16,7 @@
                             <div class="card shadow-sm">
 
                                 <div class="card-header">
-                                    <h4 class="my-0 font-weight-normal">Профиль пользователя</h4>
+                                    <h4 class="my-0 font-weight-normal">Регистрация</h4>
                                 </div>
 
                                 <div class="card-body">
@@ -26,27 +24,25 @@
 
 
                                         <dd class="clearfix">
-
+                                            {{ form.user_role|as_crispy_field }}
                                             <div class="row">
-                                                <div class="col-4">
-                                                    {{ form.last_name|as_crispy_field }}
+                                                <div class="col-6">
+                                                    {{ form.username|as_crispy_field }}
                                                 </div>
-                                                <div class="col-4">
-                                                    {{ form.first_name|as_crispy_field }}
-                                                </div>
-                                                <div class="col-4">
-                                                    {{ form.patronymic|as_crispy_field }}
+                                                <div class="col-6">
+                                                    {{ form.email|as_crispy_field }}
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-6">
-                                                    {{ form.phone|as_crispy_field }}
+                                                    {{ form.password1|as_crispy_field }}
                                                 </div>
                                                 <div class="col-6">
-                                                    {{ form.birth_date|as_crispy_field }}
+                                                    {{ form.password2|as_crispy_field }}
                                                 </div>
                                             </div>
+
 
                                         </dd>
 
@@ -57,7 +53,7 @@
 
                                 <div class="card-footer text-muted">
                                     <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
-                                        Сохранить
+                                        Зарегистрироваться
                                     </button>
                                 </div>
                             </div>

@@ -28,8 +28,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'online_school.apps.OnlineSchoolConfig',
+
     'rest_framework',
+
+    'crispy_forms',
+
     'debug_toolbar',
 ]
 
@@ -41,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
@@ -62,6 +68,8 @@ TEMPLATES = [
         },
     },
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 WSGI_APPLICATION = 'otus_web_site.wsgi.application'
 
@@ -114,3 +122,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Custom Django auth settings
+
+AUTH_USER_MODEL = "online_school.User"
+
+# LOGIN_URL = ''
+#
+# LOGOUT_URL = ''
+#
+# LOGIN_REDIRECT_URL = ''
+#
+# LOGOUT_REDIRECT_URL = ''

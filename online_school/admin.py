@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import Course, TypeCourse, Teacher, Lesson, Student, StudentsGroup  # , TeacherCourse
-
-
-# @admin.register(TeacherCourse)
-# class TeacherCourseAdmin(admin.ModelAdmin):
-#     pass
+from .models import Course, TypeCourse, Lesson, Teacher, Student, StudentsGroup
 
 
 @admin.register(TypeCourse)
@@ -19,7 +14,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ('id', 'last_name', 'first_name', 'patronymic')
+    list_display = ('user',)
 
 
 @admin.register(Lesson)
@@ -29,7 +24,7 @@ class CourseLessonsAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'last_name', 'first_name', 'patronymic', 'e_mail', 'group')
+    list_display = ('user', 'student_group')
 
 
 @admin.register(StudentsGroup)

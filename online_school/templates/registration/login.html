@@ -1,5 +1,7 @@
 {% extends "online_school/base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block body %}
 
     <div class="container">
@@ -10,59 +12,52 @@
             <div class="col-sm-4">
                 <div class="card-deck">
                     {% if form.errors %}
-                    <p>Your username and password didn't match. Please try again.</p>
+                        <p>Your username and password didn't match. Please try again.</p>
                     {% endif %}
 
                     {% if next %}
-                    {% if user.is_authenticated %}
-                    <p>Your account doesn't have access to this page. To proceed,
-                        please login with an account that has access.</p>
-                    {% else %}
-                    <p>Please login to see this page.</p>
-                    {% endif %}
+                        {% if user.is_authenticated %}
+                            <p>Your account doesn't have access to this page. To proceed,
+                                please login with an account that has access.</p>
+                        {% else %}
+                            <p>Please login to see this page.</p>
+                        {% endif %}
                     {% endif %}
 
                     {% if not user.is_authenticated %}
-                    <div class="card shadow-sm">
-                        <form method="post" action="{% url 'online_school:login' %}">
+                        <div class="card shadow-sm">
+                            <form method="post" action="{% url 'online_school:login' %}">
 
-                            <div class="card-header">
-                                <h4 class="my-0 font-weight-normal">Авторизация</h4>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="login">
-                                    {% csrf_token %}
-                                    {% for field in form %}
-                                    <div class="form-group">
-                                        <label>{{ field.label_tag }}</label>
-                                        <dd class="clearfix">
-                                            {{ field }}
-
-                                            {% if field.help_text %}
-                                            <div class="clearfix">{{ field.help_text }}</div>
-                                            {% endif %}
-
-                                            {% if field.errors %}
-                                            <div class="myerrors clearfix">{{ field.errors }}</div>
-                                            {% endif %}
-                                        </dd>
-                                    </div>
-                                    {% endfor %}
+                                <div class="card-header">
+                                    <h4 class="my-0 font-weight-normal">Авторизация</h4>
                                 </div>
-                            </div>
 
-                            <div class="card-footer text-muted">
-                                <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
-                                    Авторизация
-                                </button>
-                            </div>
+                                <div class="card-body">
+                                    <div class="login">
+                                        {% csrf_token %}
+                                        {% for field in form %}
+                                            <div class="form-group">
 
-                        </form>
-                    </div>
+                                                <dd class="clearfix">
+                                                    {{ field|as_crispy_field }}
+
+                                                </dd>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="card-footer text-muted">
+                                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
+                                        Авторизация
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
 
                     {% else %}
-                    <p>Вы уже залогированы</p>
+                        <p>Вы уже залогированы</p>
                     {% endif %}
 
                 </div>
