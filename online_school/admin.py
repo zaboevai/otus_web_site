@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Course, TypeCourse, Lesson, Teacher, Student, StudentsGroup
+
+from .models import Course, TypeCourse, Lesson, Teacher, Student, StudentsGroup, Profile
 
 
 @admin.register(TypeCourse)
@@ -30,3 +31,8 @@ class StudentsAdmin(admin.ModelAdmin):
 @admin.register(StudentsGroup)
 class StudentsGroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'course')
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'phone', 'birth_date',)

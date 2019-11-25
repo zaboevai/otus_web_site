@@ -26,25 +26,25 @@
 
 
                                         <dd class="clearfix">
-
+                                            {#                                            {{ profile_form|crispy }}#}
                                             <div class="row">
                                                 <div class="col-4">
-                                                    {{ form.last_name|as_crispy_field }}
+                                                    {{ user_form.last_name|as_crispy_field }}
                                                 </div>
                                                 <div class="col-4">
-                                                    {{ form.first_name|as_crispy_field }}
+                                                    {{ user_form.first_name|as_crispy_field }}
                                                 </div>
                                                 <div class="col-4">
-                                                    {{ form.patronymic|as_crispy_field }}
+                                                    {{ user_form.patronymic|as_crispy_field }}
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-6">
-                                                    {{ form.phone|as_crispy_field }}
+                                                    {{ profile_form.phone|as_crispy_field }}
                                                 </div>
                                                 <div class="col-6">
-                                                    {{ form.birth_date|as_crispy_field }}
+                                                    {{ profile_form.birth_date|as_crispy_field }}
                                                 </div>
                                             </div>
 

@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.db import transaction
+from django.utils.translation import gettext_lazy as _
 
 from online_school.models import Profile, Student, Teacher
 
@@ -26,26 +27,16 @@ class UserForm(UserCreationForm):
                   'password1',
                   'password2',)
 
-    username = forms.CharField(label='Логин', max_length=254)
-    email = forms.EmailField(label='Адрес электронной почты', max_length=254)
+        labels = {'username': _('Логин'),
+                  'email': _('Адрес электронной почты'),
+                  'password1': _('Пароль'),
+                  'password2': _('Подтвердите пароль'), }
 
     user_roles = ((1, 'Студент'),
                   (2, 'Учитель')
                   )
 
     user_role = forms.ChoiceField(label='Какую учетную запись вы хотите создать?', choices=user_roles)
-
-    password1 = forms.CharField(
-        label="Пароль",
-        strip=False,
-        widget=forms.PasswordInput,
-    )
-
-    password2 = forms.CharField(
-        label="Подтвердите пароль",
-        widget=forms.PasswordInput,
-        strip=False,
-    )
 
     @transaction.atomic
     def save(self, commit=True):
@@ -64,25 +55,39 @@ class UserForm(UserCreationForm):
         return user
 
 
+class UserExtendedForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('last_name',
+                  'first_name',
+                  'patronymic',)
+
+        labels = {'last_name': _('Фамилия'),
+                  'first_name': _('Имя'),
+                  'patronymic': _('Отчество'), }
+
+    def is_valid(self):
+        return True
+
+    def save(self, commit=True):
+        user = self.instance
+        user.last_name = self.cleaned_data['last_name']
+        user.first_name = self.cleaned_data['first_name']
+        user.patronymic = self.cleaned_data['patronymic']
+        if commit:
+            user.save()
+
+        return user
+
+
 class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('first_name',
-                  'last_name',
-                  'patronymic',
-                  'phone',
-                  'birth_date')
+        fields = ('phone',
+                  'birth_date',)
 
-    first_name = forms.CharField(label='Имя', required=False, max_length=254)
-    last_name = forms.CharField(label='Фамилия', required=False, max_length=254)
-    patronymic = forms.CharField(label='Отчество', required=False, max_length=254)
     phone = forms.CharField(label='Телефон', required=False, max_length=20)
     birth_date = forms.DateField(label='Дата рождения',
                                  required=False,
                                  )
-
-    def save(self, commit=True):
-        profile = super().save(commit=False)
-        profile, is_created = profile.objects.update_or_create(phone=self.phone,
-                                                               birth_date=self.birth_date)

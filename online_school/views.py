@@ -1,9 +1,11 @@
-from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, ListView, CreateView
 
-from online_school.forms import UserForm, ProfileForm, AuthForm
+from online_school.forms import UserForm, ProfileForm, AuthForm, UserExtendedForm
 from .models import Lesson, Course, Teacher, User, Profile
 
 
@@ -61,3 +63,36 @@ class ProfileView(CreateView):
     model = Profile
     form_class = ProfileForm
     template_name = 'registration/profile.html'
+
+    def get(self, request, *args, **kwargs):
+        user_form = UserExtendedForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+
+        return render(request, self.template_name, {
+            'user_form': user_form,
+            'profile_form': profile_form
+        })
+
+    def post(self, request, *args, **kwargs):
+        user_form = UserExtendedForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, _('Your profile was successfully updated!'))
+            return render(request, self.template_name, {
+                'user_form': user_form,
+                'profile_form': profile_form
+            })
+        else:
+            messages.error(request, _('Please correct the error below.'))
+
+        return render(request, self.template_name, {
+            'user_form': user_form,
+            'profile_form': profile_form
+        })
+    #
+    # def bound_form(request, id):
+    #     item = Profile.objects.get(user=User)
+    #     form = Profile(initial={'name': item.name})
+    #     return render_to_response('bounded_form.html', {'form': form})
