@@ -25,18 +25,33 @@ class UserForm(UserCreationForm):
                   'username',
                   'email',
                   'password1',
-                  'password2',)
+                  'password2',
+                  )
 
         labels = {'username': _('Логин'),
                   'email': _('Адрес электронной почты'),
-                  'password1': _('Пароль'),
-                  'password2': _('Подтвердите пароль'), }
+                  }
+
+        help_texts = {'username': 'Обязательное. 150 символов максимум. Допустимые символы @/./+/-/_ .',
+                      'password1': ' ',
+                      'password2': ' '}
 
     user_roles = ((1, 'Студент'),
                   (2, 'Учитель')
                   )
 
     user_role = forms.ChoiceField(label='Какую учетную запись вы хотите создать?', choices=user_roles)
+
+    password1 = forms.CharField(
+        label=_("Пароль"),
+        strip=False,
+        widget=forms.PasswordInput,
+    )
+    password2 = forms.CharField(
+        label=_("Подтвердите пароль"),
+        widget=forms.PasswordInput,
+        strip=False,
+    )
 
     @transaction.atomic
     def save(self, commit=True):
@@ -50,12 +65,10 @@ class UserForm(UserCreationForm):
             user.save()
             teacher = Teacher.objects.create(user=user)
 
-        profile = Profile.objects.create(user=user)
-
         return user
 
 
-class UserExtendedForm(UserCreationForm):
+class UserExtendedForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('last_name',
@@ -66,14 +79,11 @@ class UserExtendedForm(UserCreationForm):
                   'first_name': _('Имя'),
                   'patronymic': _('Отчество'), }
 
-    def is_valid(self):
-        return True
-
     def save(self, commit=True):
         user = self.instance
-        user.last_name = self.cleaned_data['last_name']
-        user.first_name = self.cleaned_data['first_name']
-        user.patronymic = self.cleaned_data['patronymic']
+        user.last_name = self.cleaned_data.get('last_name')
+        user.first_name = self.cleaned_data.get('first_name')
+        user.patronymic = self.cleaned_data.get('patronymic')
         if commit:
             user.save()
 
@@ -81,7 +91,6 @@ class UserExtendedForm(UserCreationForm):
 
 
 class ProfileForm(forms.ModelForm):
-
     class Meta:
         model = Profile
         fields = ('phone',

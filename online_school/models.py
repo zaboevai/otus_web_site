@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 
 
 class AbstractPeopleNamesMixin(models.Model):
@@ -47,6 +48,7 @@ class TypeCourse(AbstractDateTimeMixin):
 
 
 class User(AbstractUser):
+    email = models.EmailField(_('email address'))
     is_teacher = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
     patronymic = models.CharField(max_length=255, blank=True)
@@ -71,7 +73,7 @@ class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 
     def __str__(self):
-        return f'{self.user.last_name} {self.user.first_name} {self.user.patronymic}'
+        return f'{self.user} {self.user.last_name} {self.user.first_name} {self.user.patronymic}'
 
 
 class Course(AbstractTitleDescMixin, AbstractDateTimeMixin):

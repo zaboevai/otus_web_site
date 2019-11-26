@@ -91,8 +91,3 @@ class ProfileView(CreateView):
             'user_form': user_form,
             'profile_form': profile_form
         })
-    #
-    # def bound_form(request, id):
-    #     item = Profile.objects.get(user=User)
-    #     form = Profile(initial={'name': item.name})
-    #     return render_to_response('bounded_form.html', {'form': form})
