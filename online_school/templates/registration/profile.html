@@ -1,0 +1,72 @@
+{% extends 'online_school/base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row m-2">
+
+                <div class="col-sm-2"></div>
+
+                <div class="col-sm-8">
+                    <dl class="register">
+                        <div class="card ">
+                            <div class="card shadow-sm">
+
+                                <div class="card-header">
+                                    <h4 class="my-0 font-weight-normal">Профиль пользователя</h4>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="form-group">
+
+
+                                        <dd class="clearfix">
+                                            {#                                            {{ profile_form|crispy }}#}
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    {{ user_form.last_name|as_crispy_field }}
+                                                </div>
+                                                <div class="col-4">
+                                                    {{ user_form.first_name|as_crispy_field }}
+                                                </div>
+                                                <div class="col-4">
+                                                    {{ user_form.patronymic|as_crispy_field }}
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    {{ profile_form.phone|as_crispy_field }}
+                                                </div>
+                                                <div class="col-6">
+                                                    {{ profile_form.birth_date|as_crispy_field }}
+                                                </div>
+                                            </div>
+
+                                        </dd>
+
+                                    </div>
+                                    {#                                {% endfor %}#}
+
+                                </div>
+
+                                <div class="card-footer text-muted">
+                                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
+                                        Сохранить
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </dl>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

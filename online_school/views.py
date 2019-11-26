@@ -1,14 +1,12 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, ListView
-from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth import login
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
+from django.shortcuts import render, redirect
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import TemplateView, ListView, CreateView
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-
-
-from .models import Lesson, Course, Teacher
-from .serializers import CourseSerializer, UserAuthSerializer, UserLoginSerializer
+from online_school.forms import UserForm, ProfileForm, AuthForm, UserExtendedForm
+from .models import Lesson, Course, Teacher, User, Profile
 
 
 class IndexPageView(TemplateView):
@@ -30,93 +28,66 @@ class TeachersListView(ListView):
     model = Teacher
 
 
-class ContactsListView(ListView):
+class ContactsListView(TemplateView):
     template_name = 'online_school/contacts.html'
-    model = Teacher
 
 
-class LoginListView(ListView):
-    template_name = 'online_school/login.html'
-    model = Teacher
+class LoginAuthView(LoginView):
+    form_class = AuthForm
+    template_name = 'registration/login.html'
 
 
-class RegisterListView(ListView):
-    template_name = 'online_school/register.html'
-    model = Teacher
+class LogoutAuthView(LogoutView):
+    template_name = 'registration/logout.html'
 
 
-
-class AuthApiView(APIView):
-
-    def get(self, request):
-        serializer = UserAuthSerializer()
-        return Response(serializer.data)
-
-    def post(self, request):
-        serializer = UserAuthSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class PasswordRessetView(PasswordResetView):
+    template_name = 'registration/password_reset_form.html'
 
 
-class LoginApiView(APIView):
+class RegistrationView(CreateView):
+    model = User
+    form_class = UserForm
+    template_name = 'registration/signup.html'
 
-    def get(self, request):
-        serializer = UserLoginSerializer()
-        return Response(serializer.data)
+    def get_context_data(self, **kwargs):
+        return super().get_context_data()
 
-    def post(self, request):
-        data = request.data
-
-        username = data.get('username', None)
-        password = data.get('password', None)
-
-        user = authenticate(username=username, password=password)
-
-        if user:
-            if user.is_active:
-                login(request, user)
-                return Response(status=status.HTTP_200_OK)
-
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('/')
 
 
-class CourseListApiView(APIView):
+class ProfileView(CreateView):
+    model = Profile
+    form_class = ProfileForm
+    template_name = 'registration/profile.html'
 
-    def get(self, request):
-        course = Course.objects.all()
-        serializer = CourseSerializer(course, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get(self, request, *args, **kwargs):
+        user_form = UserExtendedForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
 
-    def post(self, request):
-        serializer = CourseSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+        return render(request, self.template_name, {
+            'user_form': user_form,
+            'profile_form': profile_form
+        })
 
+    def post(self, request, *args, **kwargs):
+        user_form = UserExtendedForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, _('Your profile was successfully updated!'))
+            return render(request, self.template_name, {
+                'user_form': user_form,
+                'profile_form': profile_form
+            })
+        else:
+            messages.error(request, _('Please correct the error below.'))
 
-class CourseListDetailApiView(APIView):
-
-    def get(self, request, pk):
-        course = get_object_or_404(Course, pk=pk)
-        serializer = CourseSerializer(course)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def patch(self, request, pk):
-        course = get_object_or_404(Course, pk=pk)
-        serializer = CourseSerializer(instance=course, data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
-
-    def delete(self, request, pk):
-        course = get_object_or_404(Course, pk=pk)
-        serializer = CourseSerializer(course)
-        data = serializer.data
-        course.delete()
-        return Response(data, status=status.HTTP_200_OK)
+        return render(request, self.template_name, {
+            'user_form': user_form,
+            'profile_form': profile_form
+        })

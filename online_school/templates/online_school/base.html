@@ -8,20 +8,35 @@
     <title>
 
         {% block title %}
-        BrainStorm - Онлайн образование
+            BrainStorm - Онлайн образование
         {% endblock %}
 
     </title>
 </head>
+
 <body>
 
-    {% block header %}
+{% block header %}
 
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 text-light bg-dark border-bottom shadow-sm ">
+    <div class="d-flex flex-column flex-md-row align-items-md-center p-2 text-light bg-dark border-bottom shadow-sm ">
 
         <div class="flex-sm-fill bd-highlight">
             <a class="navbar-brand text-light" href="/">Brain storm</a>
+        </div>
+
+        <div class="flex-sm-fill bd-highlight">
+            <div class="navbar-brand text-white-50">
+                {% if user.is_authenticated %}
+                    {% if user.is_teacher %}
+                        Учительская
+                    {% elif user.is_student %}
+                        Студентческая
+                    {% elif user.is_staff %}
+                        <a class="text-white-50" href="/admin/"> Админская </a>
+                    {% endif %}
+                {% endif %}
             </div>
+        </div>
 
         <div class="p-2 justify-content-end bd-highlight">
             <nav class="navbar navbar-dark navbar-expand-lg my-md-0 mr-md-3">
@@ -31,68 +46,70 @@
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse bg-dark" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <a class="nav-link text-light" href="/courses/">Курсы</a>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Обучение
-                        </a>
-                        <div class="dropdown-menu ">
-                            <a class="dropdown-item" href="/lessons/">Обучение</a>
-                            <a class="dropdown-item" href="/teachers/">Преподаватели</a>
+                    {% if user.is_authenticated %}
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Обучение
+                            </a>
+                            <div class="dropdown-menu ">
+                                <a class="dropdown-item" href="/lessons/">Расписание занятий</a></div>
                         </div>
-                    </div>
+                    {% endif %}
                     <a class="nav-link text-light mr-md-5" href="/contacts/">Контакты</a>
-
-                    <a class="btn btn-outline-primary mr-md-2" href="/login/">Войти</a>
-                    <a class="btn btn-outline-primary mr-md-2" href="/register/">Регистрация</a>
+                    {% if not user.is_authenticated %}
+                        <a class="btn btn-outline-primary mr-md-2" href="/login/">Войти</a>
+                        <a class="btn btn-outline-primary mr-md-2" href="/signup/">Регистрация</a>
+                    {% else %}
+                        <a class="btn btn-outline-primary mr-md-2" href="/accounts/profile/">{{ user }}</a>
+                        <a class="btn btn-outline-primary mr-md-2" href="/logout/">Выйти</a>
+                    {% endif %}
                 </div>
             </nav>
-            </div>
+        </div>
     </div>
-    {% endblock %}
+{% endblock %}
 
-    {% block body %}
-    {% endblock %}
+{% block body %}
+{% endblock %}
 
-    {% block body_end %}
-    <footer class="pt-4 my-md-5 pt-md-5 border-top text-light">
+{% block body_end %}
+    <footer class="my-md-5 pt-md-5 border-top">
         <div class="row">
 
-            <div class="10 col-md" align="right">
+            <div class="10 col-md m-3">
                 <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
             </div>
 
-            <div class="1 col-md" align="right">
-<!--                <button id='subscribe' type="button" class="btn btn-secondary bg-gray">Подписаться на новости</button>-->
+            <div class="1 col-md m-3">
                 <a id='subscribe' href="#">Подписаться на новости</a>
-            </div>
-            <div class="1 col-md" align="left">
                 <form id="form">
-                    <fieldset name="userFields" hidden="true" >
+                    <fieldset name="userFields" hidden="true">
                         <legend hidden="False">Email</legend>
-                            <input name="login" type="email" placeholder="email@example.com" >
-                            <a id="SubscribeButton" class="btn btn-outline-primary mr-md-2" href="#">Подписаться</a>
-<!--                            <input id="SubscribeButton" type="submit" value="Подписаться">-->
+                        <label>
+                            <input name="login" type="email" placeholder="email@example.com">
+                        </label>
+                        <a id="SubscribeButton" class="btn btn-outline-primary mr-md-2" href="#">Подписаться</a>
                     </fieldset>
                 </form>
             </div>
         </div>
     </footer>
-    {% endblock %}
+{% endblock %}
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <script src="{% static  'online_school/js/subscription.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="{% static  'online_school/js/subscription.js' %}"></script>
 </body>
 
 </html>

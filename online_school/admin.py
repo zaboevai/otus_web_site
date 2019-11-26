@@ -1,10 +1,7 @@
 from django.contrib import admin
-from .models import * #Course, TypeCourse, Teacher, Lesson, Student, StudentsGroup
 
+from .models import Course, TypeCourse, Lesson, Teacher, Student, StudentsGroup, Profile
 
-@admin.register(SubscribeEmail)
-class SubscribeEmailAdmin(admin.ModelAdmin):
-    list_display = ('email',)
 
 @admin.register(TypeCourse)
 class TypeCourseAdmin(admin.ModelAdmin):
@@ -13,16 +10,12 @@ class TypeCourseAdmin(admin.ModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'desc', 'type', 'display_teacher')
-
-    def display_teacher(self, obj):
-        teachers = obj.teachers.values_list('last_name', 'first_name', 'patronymic')
-        return '; '.join([' '.join(teacher) for teacher in teachers])
+    list_display = ('id', 'title', 'desc', 'type')
 
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ('id', 'last_name', 'first_name', 'patronymic')
+    list_display = ('user',)
 
 
 @admin.register(Lesson)
@@ -32,9 +25,14 @@ class CourseLessonsAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'last_name', 'first_name', 'patronymic', 'e_mail', 'group')
+    list_display = ('user', 'student_group')
 
 
 @admin.register(StudentsGroup)
 class StudentsGroupAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'course')
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'phone', 'birth_date',)
