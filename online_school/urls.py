@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import path
 
 import online_school.views_api
 from online_school import views
@@ -19,6 +19,8 @@ urlpatterns = [
     path('logout/', views.LogoutAuthView.as_view(), name='logout'),
     path('accounts/profile/', views.ProfileView.as_view(), name='profile'),
     path('password_reset/', views.PasswordResetView.as_view(), name='password_reset'),
+
+    path('subscribe/', views.SubscribeView.as_view(), name='subscribe'),
 
 
     path('api/auth/', online_school.views_api.AuthApiView.as_view()),

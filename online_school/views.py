@@ -5,8 +5,9 @@ from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, ListView, CreateView
 
+from online_school import tasks
 from online_school.forms import UserForm, ProfileForm, AuthForm, UserExtendedForm
-from .models import Lesson, Course, Teacher, User, Profile
+from .models import Lesson, Course, Teacher, User, Profile, Subscribed
 
 
 class IndexPageView(TemplateView):
@@ -91,3 +92,12 @@ class ProfileView(CreateView):
             'user_form': user_form,
             'profile_form': profile_form
         })
+
+
+class SubscribeView(CreateView):
+    model = Subscribed
+    template_name = 'online_school/index.html'
+
+    def get(self, request, *args, **kwargs):
+        tasks.send_subscribe_email(kwargs.get('email'))
+        return render(request, self.template_name)

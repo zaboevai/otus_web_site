@@ -1,8 +1,21 @@
 import os
 
+# CELERY settings
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost'
+CELERY_RESULT_BACKEND = 'django-db'
+
+# BACKEND EMAIL settings
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = 'email'
+EMAIL_HOST_USER = 'login'
+EMAIL_HOST_PASSWORD = 'password'
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -28,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_results',
 
     'online_school.apps.OnlineSchoolConfig',
 
@@ -120,17 +134,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
 
 # Custom Django auth settings
-
 AUTH_USER_MODEL = "online_school.User"
-
-# LOGIN_URL = ''
-#
-# LOGOUT_URL = ''
-#
-# LOGIN_REDIRECT_URL = ''
-#
-# LOGOUT_REDIRECT_URL = ''

@@ -119,3 +119,7 @@ class Lesson(AbstractTitleDescMixin, AbstractDateTimeMixin):
 
     def __str__(self):
         return f'{self.title}'
+
+
+class Subscribed(AbstractDateTimeMixin):
+    email = models.EmailField(_('email address'))
