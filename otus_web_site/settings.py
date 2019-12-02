@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     'debug_toolbar',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
