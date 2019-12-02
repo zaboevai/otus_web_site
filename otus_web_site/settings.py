@@ -138,3 +138,12 @@ STATIC_URL = '/static/'
 
 # Custom Django auth settings
 AUTH_USER_MODEL = "online_school.User"
+
+# sentry settings
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://de9d0de138dc40c6bb69497f194c0972@sentry.io/1841941",
+    integrations=[DjangoIntegration()]
+)
