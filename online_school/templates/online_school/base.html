@@ -76,6 +76,9 @@
 {% endblock %}
 
 {% block body_end %}
+
+    {% load crispy_forms_tags %}
+
     <footer class="my-md-5 pt-md-5 border-top">
         <div class="row">
 
@@ -85,14 +88,16 @@
 
             <div class="1 col-md m-3">
                 <a id='subscribe' href="#">Подписаться на новости</a>
-                <form id="form">
+                <form id="form" method="post">
                     <fieldset name="userFields" hidden="true">
                         <legend hidden="False">Email</legend>
                         <label>
-                            <input name="login" type="email" placeholder="email@example.com">
+                            <input name="email" type="email" placeholder="email@example.com">
                         </label>
-                        <a id="SubscribeButton" class="btn btn-outline-primary mr-md-2"
-                           href="/subscribe/">Подписаться</a>
+                        {% csrf_token %}
+                        <button type="submit" id="SubscribeButton" class="btn btn-outline-primary mr-md-2"
+                                href="/subscribe/">Подписаться
+                        </button>
                     </fieldset>
                 </form>
             </div>

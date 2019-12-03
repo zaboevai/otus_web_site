@@ -121,5 +121,5 @@ class Lesson(AbstractTitleDescMixin, AbstractDateTimeMixin):
         return f'{self.title}'
 
 
-class Subscribed(AbstractDateTimeMixin):
+class Subscribe(AbstractDateTimeMixin):
     email = models.EmailField(_('email address'))

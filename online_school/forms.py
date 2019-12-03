@@ -4,7 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
-from online_school.models import Profile, Student, Teacher
+from online_school import tasks
+from online_school.models import Profile, Student, Teacher, Subscribe
 
 User = get_user_model()
 
@@ -100,3 +101,14 @@ class ProfileForm(forms.ModelForm):
     birth_date = forms.DateField(label='Дата рождения',
                                  required=False,
                                  )
+
+
+class SubscribeForm(forms.ModelForm):
+    class Meta:
+        model = Subscribe
+        fields = ('email',)
+
+    email = forms.EmailField()
+
+    def send_email(self):
+        tasks.send_subscribe_email(self.cleaned_data.get('email'))
