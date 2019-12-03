@@ -1,5 +1,8 @@
 Django==2.2.5
 django-debug-toolbar==2.0
 djangorestframework==3.10.3
+django-celery-results==1.1.2
 Markdown==3.1.1
 django-crispy-forms==1.8.0
+celery==4.3.0
+sentry-sdk==0.13.4

@@ -47,6 +47,11 @@
                                                     {{ profile_form.birth_date|as_crispy_field }}
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    {{ profile_form.is_subscribe|as_crispy_field }}
+                                                </div>
+                                            </div>
 
                                         </dd>
 
@@ -55,15 +60,26 @@
 
                                 </div>
 
+                                {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                    <li
+                                    {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+
                                 <div class="card-footer text-muted">
                                     <button type="submit" class="btn btn-lg btn-block btn-outline-primary">
                                         Сохранить
                                     </button>
                                 </div>
+
                             </div>
                         </div>
                     </dl>
                 </div>
+
                 <div class="col-sm-2"></div>
             </div>
         </div>

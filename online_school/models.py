@@ -58,6 +58,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     phone = models.CharField(max_length=20, null=True, blank=True, )
     birth_date = models.DateField(null=True, blank=True, )
+    is_subscribe = models.BooleanField(default=False)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

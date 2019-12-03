@@ -94,9 +94,20 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('phone',
-                  'birth_date',)
+                  'birth_date',
+                  'is_subscribe')
 
-    phone = forms.CharField(label='Телефон', required=False, max_length=20)
-    birth_date = forms.DateField(label='Дата рождения',
-                                 required=False,
-                                 )
+        labels = {'phone': _('Телефон'),
+                  'birth_date': _('Дата рождения'),
+                  'is_subscribe': _('получать новости'), }
+
+    def save(self, commit=True):
+        profile = self.instance
+        profile.phone = self.cleaned_data.get('phone')
+        profile.birth_date = self.cleaned_data.get('birth_date')
+        profile.is_subscribe = self.cleaned_data.get('is_subscribe')
+
+        if commit:
+            profile.save()
+
+        return profile
