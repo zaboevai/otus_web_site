@@ -21,7 +21,6 @@ urlpatterns = [
     path('password_reset/', views.PasswordResetView.as_view(), name='password_reset'),
 
     path('api/auth/', online_school.views_api.AuthApiView.as_view()),
-    path('api/login/', online_school.views_api.LoginApiView.as_view()),
     path('api/courses/', online_school.views_api.CourseListApiView.as_view()),
     path('api/courses/<int:pk>/', online_school.views_api.CourseListDetailApiView.as_view()),
 

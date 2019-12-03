@@ -54,18 +54,6 @@ URL: [http://127.0.0.1:8000/api/auth/]()
     "password": ""
 }
 
->Авторизация пользователя:  
-
-URL: [http://127.0.0.1:8000/api/login/]()
-
-{
-    "username": "",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "password": ""
-}
-
 >Список курсов:  
 
 URL: [http://127.0.0.1:8000/api/courses/]()
