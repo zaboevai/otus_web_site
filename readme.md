@@ -1,5 +1,8 @@
 # Документация
 
+Site url
+>http://127.0.0.1:8000
+
 # Install
 
 RabbitMQ:
@@ -7,6 +10,23 @@ RabbitMQ:
 
 requirements.txt:
 >pip install -r requriments.txt
+
+# Before run
+
+Change celery EMAIL settings [otus_web_site/settings.py]()
+
+>EMAIL_HOST = 'smtp.yandex.ru'
+
+>EMAIL_PORT = 465
+
+>EMAIL_USE_SSL = True
+
+>DEFAULT_FROM_EMAIL = 'email'
+
+>EMAIL_HOST_USER = 'login'
+
+>EMAIL_HOST_PASSWORD = 'password'
+
 
 # Run
 Celery
