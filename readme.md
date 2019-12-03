@@ -1,6 +1,21 @@
 # Документация
 
-Реализовано rest api
+# Install
+
+RabbitMQ:
+>sudo apt-get install rabbitmq-server
+
+requirements.txt:
+>pip install -r requriments.txt
+
+# Run
+Celery
+> run_celery.sh
+
+Web server
+> run_server.sh
+
+# Rest api
 
 >Добавление новых пользователей:  
 
