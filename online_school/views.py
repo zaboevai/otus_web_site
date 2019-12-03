@@ -5,8 +5,9 @@ from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, ListView, CreateView
 
-from online_school.forms import UserForm, ProfileForm, AuthForm, UserExtendedForm, SubscribeForm
-from .models import Lesson, Course, Teacher, User, Profile, Subscribe
+from online_school import tasks
+from online_school.forms import UserForm, ProfileForm, AuthForm, UserExtendedForm
+from .models import Lesson, Course, Teacher, User, Profile
 
 
 class IndexPageView(TemplateView):
@@ -79,7 +80,16 @@ class ProfileView(CreateView):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, _('Your profile was successfully updated!'))
+
+            try:
+                if profile_form.cleaned_data['is_subscribe']:
+                    tasks.send_subscribe_email(request.user.email)
+                else:
+                    tasks.send_unsubscribe_email(request.user.email)
+            except BaseException as exc:
+                messages.success(request, _(f'Ошибка отправки уведомления: {exc}'))
+
+            messages.success(request, _('Профиль был успешно обновлен !'))
             return render(request, self.template_name, {
                 'user_form': user_form,
                 'profile_form': profile_form
@@ -91,16 +101,3 @@ class ProfileView(CreateView):
             'user_form': user_form,
             'profile_form': profile_form
         })
-
-
-class SubscribeView(CreateView):
-    model = Subscribe
-    form_class = SubscribeForm
-    template_name = 'online_school/subscribe.html'
-
-    def form_valid(self, form):
-        form.send_email()
-        return super().form_valid(form)
-
-    def post(self, request, *args, **kwargs):
-        pass

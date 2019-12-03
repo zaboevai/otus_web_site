@@ -20,9 +20,6 @@ urlpatterns = [
     path('accounts/profile/', views.ProfileView.as_view(), name='profile'),
     path('password_reset/', views.PasswordResetView.as_view(), name='password_reset'),
 
-    path('subscribe/', views.SubscribeView.as_view(), name='subscribe'),
-
-
     path('api/auth/', online_school.views_api.AuthApiView.as_view()),
     path('api/login/', online_school.views_api.LoginApiView.as_view()),
     path('api/courses/', online_school.views_api.CourseListApiView.as_view()),

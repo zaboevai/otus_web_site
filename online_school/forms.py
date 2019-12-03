@@ -4,8 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
-from online_school import tasks
-from online_school.models import Profile, Student, Teacher, Subscribe
+from online_school.models import Profile, Student, Teacher
 
 User = get_user_model()
 
@@ -95,20 +94,20 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('phone',
-                  'birth_date',)
+                  'birth_date',
+                  'is_subscribe')
 
-    phone = forms.CharField(label='Телефон', required=False, max_length=20)
-    birth_date = forms.DateField(label='Дата рождения',
-                                 required=False,
-                                 )
+        labels = {'phone': _('Телефон'),
+                  'birth_date': _('Дата рождения'),
+                  'is_subscribe': _('получать новости'), }
 
+    def save(self, commit=True):
+        profile = self.instance
+        profile.phone = self.cleaned_data.get('phone')
+        profile.birth_date = self.cleaned_data.get('birth_date')
+        profile.is_subscribe = self.cleaned_data.get('is_subscribe')
 
-class SubscribeForm(forms.ModelForm):
-    class Meta:
-        model = Subscribe
-        fields = ('email',)
+        if commit:
+            profile.save()
 
-    email = forms.EmailField()
-
-    def send_email(self):
-        tasks.send_subscribe_email(self.cleaned_data.get('email'))
+        return profile
