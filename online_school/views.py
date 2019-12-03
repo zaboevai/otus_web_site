@@ -83,9 +83,9 @@ class ProfileView(CreateView):
 
             try:
                 if profile_form.cleaned_data['is_subscribe']:
-                    tasks.send_subscribe_email(request.user.email)
+                    tasks.send_subscribe_email.delay(request.user.email)
                 else:
-                    tasks.send_unsubscribe_email(request.user.email)
+                    tasks.send_unsubscribe_email.delay(request.user.email)
             except BaseException as exc:
                 messages.success(request, _(f'Ошибка отправки уведомления: {exc}'))
 

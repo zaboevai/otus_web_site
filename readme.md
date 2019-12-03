@@ -18,7 +18,7 @@ requirements.txt:
 
 # Before run
 
-Change celery EMAIL settings [otus_web_site/settings.py]()
+Create local_settings.py and add yours email host settings
 
 >EMAIL_HOST = 'smtp.yandex.ru'
 
