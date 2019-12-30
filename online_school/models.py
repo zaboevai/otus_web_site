@@ -5,15 +5,6 @@ from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 
-class AbstractPeopleNamesMixin(models.Model):
-    class Meta:
-        abstract = True
-
-    last_name = models.CharField(max_length=255)
-    first_name = models.CharField(max_length=255)
-    patronymic = models.CharField(max_length=255)
-
-
 class AbstractTitleDescMixin(models.Model):
     class Meta:
         abstract = True
@@ -28,13 +19,6 @@ class AbstractDateTimeMixin(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-
-class SubscribeEmail(models.Model):
-    class Meta:
-        ordering = ('id',)
-
-    email = models.EmailField(max_length=255)
 
 
 class TypeCourse(AbstractDateTimeMixin):
@@ -57,7 +41,7 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     phone = models.CharField(max_length=20, null=True, blank=True, )
-    birth_date = models.DateField(null=True, blank=True, )
+    birth_date = models.DateField(null=True, blank=True)
     is_subscribe = models.BooleanField(default=False)
 
     @receiver(post_save, sender=User)
@@ -81,7 +65,6 @@ class Course(AbstractTitleDescMixin, AbstractDateTimeMixin):
     class Meta:
         ordering = ('id',)
 
-    created = models.DateTimeField(auto_now_add=True)
     type = models.ForeignKey(TypeCourse, null=True, blank=True, on_delete=models.SET_NULL)
     teachers = models.ManyToManyField(Teacher, related_name='Course')
 
