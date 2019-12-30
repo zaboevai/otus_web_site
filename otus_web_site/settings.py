@@ -1,18 +1,19 @@
 import os
 
+import local_settings
+
 # CELERY settings
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost'
 CELERY_RESULT_BACKEND = 'django-db'
 
 # BACKEND EMAIL settings
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
+EMAIL_HOST = local_settings.EMAIL_HOST
+EMAIL_PORT = local_settings.EMAIL_PORT
+EMAIL_USE_SSL = local_settings.EMAIL_USE_SSL
 
-DEFAULT_FROM_EMAIL = 'email'
-EMAIL_HOST_USER = 'login'
-EMAIL_HOST_PASSWORD = 'password'
-
+DEFAULT_FROM_EMAIL = local_settings.DEFAULT_FROM_EMAIL
+EMAIL_HOST_USER = local_settings.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = local_settings.EMAIL_HOST_PASSWORD
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_nose',
+
     'django_celery_results',
 
     'online_school.apps.OnlineSchoolConfig',
@@ -85,9 +89,7 @@ TEMPLATES = [
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
 WSGI_APPLICATION = 'otus_web_site.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -98,7 +100,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -118,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -131,7 +131,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -148,3 +147,12 @@ sentry_sdk.init(
     dsn="https://de9d0de138dc40c6bb69497f194c0972@sentry.io/1841941",
     integrations=[DjangoIntegration()]
 )
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'foo' and 'bar' apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=otus_web_site, online_school',
+]
