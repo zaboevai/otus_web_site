@@ -33,4 +33,4 @@ jobs:
         # --max-line-length=127 --statistics
     - name: Test with django unittest
       run: |
-        python manage.py test
+        python otus_web_site/manage.py test
