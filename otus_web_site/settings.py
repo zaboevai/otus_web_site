@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_nose',
+
     'django_celery_results',
 
     'online_school.apps.OnlineSchoolConfig',
@@ -144,3 +147,12 @@ sentry_sdk.init(
     dsn="https://de9d0de138dc40c6bb69497f194c0972@sentry.io/1841941",
     integrations=[DjangoIntegration()]
 )
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'foo' and 'bar' apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=otus_web_site, online_school',
+]

@@ -66,3 +66,7 @@ URL: [http://127.0.0.1:8000/api/courses/1/]()
 > GraphQl:  
 
 URL: [http://127.0.0.1:8000/graphql/]()
+
+# Tests
+
+> python manage.py test
