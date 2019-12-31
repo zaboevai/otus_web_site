@@ -1,8 +1,7 @@
-#import pytest
-# Create your tests here.
-import unittest
+from django.test import TestCase
+
+import online_school.views
 
 
-class Tests(unittest.TestCase):
-    def test_true(self):
-        self.assertEqual(1, 1)
+def test():
+    pass
